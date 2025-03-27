@@ -12,6 +12,7 @@ Built for busy teams and solo builders who want to monitor spend spikes without 
 - ✅ Sends Slack alerts when thresholds are breached  
 - ✅ (Optional) Generates a bar chart of cost comparisons  
 ![cost_comparison_chart](https://github.com/user-attachments/assets/1bf8c712-09c0-49b4-bd7b-a372eb097c8b)
+![Screenshot 2025-03-26 at 9 58 30 PM](https://github.com/user-attachments/assets/b61161f7-ffe3-401f-80ff-15eb811ada9d)
 
 ## 📁 Project Structure
 
