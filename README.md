@@ -1,54 +1,58 @@
+# Cost Spike Alert Bot: AWS Spend Alerts in Slack
 
-# 🧠 FinOps Spike Alert Bot
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![pandas](https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas&logoColor=white)
+![Slack API](https://img.shields.io/badge/Slack_API-4A154B?style=flat-square)
+![REST](https://img.shields.io/badge/REST_(requests)-FF6C37?style=flat-square)
+![AWS](https://img.shields.io/badge/AWS_Cost_Data-232F3E?style=flat-square)
 
-A lightweight, automated solution for detecting AWS cost anomalies and sending real-time Slack alerts.
+A lightweight Python bot that compares yesterday's AWS spend to the trailing 7-day average and posts a Slack alert when the jump crosses a threshold, so nobody has to keep checking Cost Explorer.
 
-Built for busy teams and solo builders who want to monitor spend spikes without constantly checking Cost Explorer.
+📄 **Case study:** [Cost Spike Alert Bot: Real-Time AWS Alerts in Slack](https://iamnicolecoleman.com/portfolio/case-study-finops-spike-alert-bot-real-time-cost-surge-detection/)
 
-## 🚀 What It Does
+## Skills demonstrated
 
-- ✅ Analyzes daily AWS cost data (CSV-based)  
-- ✅ Detects spend spikes using a 7-day average vs. yesterday  
-- ✅ Sends Slack alerts when thresholds are breached  
-- ✅ (Optional) Generates a bar chart of cost comparisons  
-![cost_comparison_chart](https://github.com/user-attachments/assets/1bf8c712-09c0-49b4-bd7b-a372eb097c8b)
-![Screenshot 2025-03-26 at 9 58 30 PM](https://github.com/user-attachments/assets/b61161f7-ffe3-401f-80ff-15eb811ada9d)
+| Skill | Where it shows up |
+|---|---|
+| API integration | Posting alerts to Slack through its Web API with a bot token (`requests`) |
+| Secrets handling | Token loaded from a `.env` file with `python-dotenv`, kept out of Git |
+| Data processing | Parsing daily cost exports and computing the 7-day baseline (pandas) |
+| Alert logic | Configurable percentage threshold for what counts as a spike |
+| Visualization | Optional comparison chart generated with Matplotlib |
 
-## 📁 Project Structure
+## How it works
 
+```mermaid
+flowchart LR
+    A[Daily AWS cost CSV<br/>CUR / Cost Explorer export] --> B[pandas<br/>7-day avg vs. yesterday]
+    B --> C{Over threshold?}
+    C -- yes --> D[Slack alert<br/>+ optional chart]
+    C -- no --> E[No action]
 ```
-FinOpsSpikeAlertBot/
-├── .env                        # Stores your Slack Bot Token (excluded from Git)
-├── finops_spike_alert.ipynb    # Main notebook to run and test the bot
-├── dummy_aws_cost_data.csv     # Sample AWS cost data for testing
-├── cost_comparison_chart.png   # (Optional) chart image output
-├── README.md                   # You're reading it
-```
 
-## 🛠️ Setup Instructions
+![Cost comparison chart](https://github.com/user-attachments/assets/1bf8c712-09c0-49b4-bd7b-a372eb097c8b)
+![Slack alert](https://github.com/user-attachments/assets/b61161f7-ffe3-401f-80ff-15eb811ada9d)
 
-1. **Clone or download** this repo  
-2. Create a `.env` file in the root folder and add: Your Slack Token
-3. Open `finops_spike_alert.ipynb` and run it step by step  
-4. Your Slack bot will send an alert if a cost spike is detected
+## Files
 
-## 📌 Notes
+| File | Description |
+|---|---|
+| `finops_spike_alert.ipynb` | Main notebook: load data, detect spikes, send the alert |
+| `dummy_aws_cost_data.csv` | Sample cost data for testing |
+| `cost_comparison_chart.png` | Example chart output |
 
-- Uses Slack **bot tokens**, not incoming webhooks  
-- Slack image uploads are optional — use hosted links if needed  
-- Cost data comes from a CUR or Cost Explorer export (CSV)  
+## Setup
 
-## 💡 Future Enhancements
+1. Clone the repo.
+2. Create a `.env` file in the root with your Slack bot token (never commit it).
+3. Open `finops_spike_alert.ipynb` and run the cells.
 
-- Auto-upload chart to S3 + share link  
-- GitHub Actions or AWS Lambda for daily runs  
-- Multi-account AWS cost aggregation  
-- Enhanced anomaly detection (z-score, rolling windows)  
+## What I'd add next
 
-## 👩🏽‍💻 Created By
+- Scheduled daily runs (GitHub Actions or AWS Lambda)
+- Multi-account aggregation
+- Rolling-window or z-score detection to cut false positives
 
-**Nicole Coleman**  
-Freelancer @ 3509 Innovation  
-AWS Community Builder • FinOps + Automation Specialist
+---
 
-
+**Nicole Coleman** · Founder, 3509 Innovations · [LinkedIn](https://www.linkedin.com/in/nicoledcoleman/) · [Portfolio](https://iamnicolecoleman.com)
